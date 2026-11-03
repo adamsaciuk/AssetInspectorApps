@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Asset Inspector downloads</title>
-<meta name="description" content="Download the latest Drone Harmony Asset Inspector app for your controller.">
+<meta name="description" content="Download the latest Drone Harmony Asset Inspector app for your DJI controller.">
 <link rel="icon" type="image/png" href="assets/dh-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* Colours from the Drone Harmony brand tokens (nucleus/packages/brand). */
   :root {
+    color-scheme: dark;
     --bg-0: #0b0e14;
     --bg-2: #11151d;
     --bg-3: #171c26;
@@ -22,88 +23,58 @@
     --accent: #f47b47;
     --accent-text: #f4a17e;
     --accent-glow: rgba(244, 123, 71, 0.35);
+    --positive: #34d399;
+    --positive-bg: rgba(52, 211, 153, 0.12);
+    --negative: #ff6b63;
+    --negative-bg: rgba(255, 107, 99, 0.12);
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
+  html, body { height: 100%; }
   body {
     margin: 0;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 40px 16px 28px;
-    background: radial-gradient(1200px 600px at 50% -10%, rgba(244, 123, 71, 0.12), transparent 60%), var(--bg-0);
+    min-height: 100%;
+    background:
+      radial-gradient(60% 45% at 18% 0%, rgba(244, 123, 71, 0.13), transparent 60%),
+      radial-gradient(50% 40% at 85% 10%, rgba(244, 161, 126, 0.09), transparent 60%),
+      radial-gradient(70% 55% at 50% 110%, rgba(239, 106, 51, 0.1), transparent 65%),
+      var(--bg-0);
     color: var(--text-strong);
     font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
   }
-  .logo { height: 44px; width: auto; margin-bottom: 32px; }
-  .card {
-    width: 100%;
-    max-width: 560px;
-    padding: 32px 28px 28px;
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    background: var(--bg-2);
-    text-align: center;
-  }
-  h1 { margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; }
-  .tag {
-    display: inline-block;
-    margin-left: 8px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--bg-0);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    vertical-align: 4px;
-  }
-  .lead { margin: 12px 0 24px; color: var(--text-mid); line-height: 1.5; }
-  .label {
-    margin: 0 0 10px;
-    color: var(--text-dim);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-align: left;
-  }
-  .servers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .server {
+  body.locked { overflow: hidden; }
+
+  .top { padding: 28px 32px 0; }
+  .logo { display: block; height: 40px; width: auto; }
+
+  .hero {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 64px;
-    border: 1px solid var(--line-strong);
-    border-radius: 14px;
-    background: var(--bg-3);
-    color: var(--text-strong);
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-decoration: none;
+    padding: 32px 16px;
   }
-  .server:hover, .server:focus { border-color: var(--accent); color: var(--accent-text); outline: none; }
-  .custom { margin-top: 22px; }
-  .custom-row { display: flex; gap: 10px; }
-  .custom input {
-    flex: 1;
-    min-width: 0;
-    min-height: 56px;
-    padding: 0 16px;
-    border: 1px solid var(--line-strong);
-    border-radius: 14px;
-    background: var(--bg-0);
-    color: var(--text-strong);
-    font: inherit;
-    font-size: 1.1rem;
-    letter-spacing: 0.04em;
+  .hero-inner {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 32px;
+    align-items: center;
+  }
+  .eyebrow {
+    margin: 0 0 10px;
+    color: var(--accent-text);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
-  .custom input::placeholder { color: var(--text-dim); text-transform: none; letter-spacing: 0; }
-  .custom input:focus { border-color: var(--accent); outline: none; }
+  h1 { margin: 0; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; }
+  .lead { margin: 16px 0 28px; max-width: 34em; color: var(--text-mid); font-size: 1.08rem; line-height: 1.55; }
   .button {
     display: inline-block;
     min-height: 56px;
@@ -122,120 +93,250 @@
     box-shadow: 0 8px 28px var(--accent-glow);
   }
   .button:hover { filter: brightness(1.08); }
-  .button.big { padding: 18px 36px; font-size: 1.15rem; }
-  .message { margin: 12px 0 0; color: var(--accent-text); font-size: 0.92rem; text-align: left; }
-  .meta { margin-top: 12px; color: var(--text-dim); font-size: 0.85rem; }
-  .note { margin: 14px 0 0; color: var(--accent-text); font-size: 0.88rem; line-height: 1.5; }
-  .steps {
-    margin: 26px 0 0;
-    padding: 20px 0 0;
-    border-top: 1px solid var(--line);
-    text-align: left;
-    color: var(--text-mid);
-    font-size: 0.92rem;
-    line-height: 1.55;
+  .button:disabled { opacity: 0.55; cursor: default; filter: none; }
+  .button.big { min-height: 64px; padding: 19px 40px; font-size: 1.18rem; }
+  .button svg { width: 20px; height: 20px; margin: -3px 10px -3px 0; vertical-align: middle; }
+  .meta { margin: 14px 0 0; color: var(--text-dim); font-size: 0.9rem; }
+  .meta.failed { color: var(--negative); }
+
+  .card {
+    padding: 28px 28px 24px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--bg-2);
   }
-  .steps ol { margin: 8px 0 0; padding-left: 20px; }
-  .steps strong { color: var(--text-strong); }
-  .change {
-    display: inline-block;
-    margin-top: 22px;
-    padding: 10px 4px;
+  .card h2 { margin: 0 0 16px; font-size: 1.05rem; font-weight: 700; }
+  .step-list { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+  .step-list li {
+    position: relative;
+    margin: 0 0 14px;
+    padding-left: 44px;
+    min-height: 30px;
     color: var(--text-mid);
     font-size: 0.95rem;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    line-height: 1.5;
+    counter-increment: step;
   }
-  .change:hover { color: var(--accent-text); }
-  footer { margin-top: 28px; color: var(--text-dim); font-size: 0.8rem; text-align: center; line-height: 1.6; }
-  /* Controller screens held sideways are wide but short. */
-  @media (max-height: 600px) and (orientation: landscape) {
-    body { padding-top: 20px; }
-    .logo { height: 34px; margin-bottom: 18px; }
-    .card { padding: 24px 28px 22px; }
-    .lead { margin: 8px 0 18px; }
+  .step-list li:last-child { margin-bottom: 0; }
+  .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(244, 123, 71, 0.14);
+    color: var(--accent-text);
+    font-size: 0.85rem;
+    font-weight: 800;
+    line-height: 30px;
+    text-align: center;
   }
-  @media (max-width: 420px) {
-    .card { padding: 26px 18px 22px; }
-    .servers { gap: 8px; }
-    .custom-row { flex-direction: column; }
+  .step-list strong { color: var(--text-strong); }
+
+  footer { padding: 0 16px 24px; color: var(--text-dim); font-size: 0.8rem; text-align: center; line-height: 1.6; }
+
+  /* The server choice, over the page. */
+  .overlay {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(5, 7, 10, 0.72);
+  }
+  .sheet {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 28px 28px 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 24px;
+    background: var(--bg-2);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  }
+  .sheet h2 { margin: 0; padding-right: 48px; font-size: 1.4rem; font-weight: 700; }
+  .sheet-lead { margin: 8px 0 20px; color: var(--text-mid); line-height: 1.5; }
+  .close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-mid);
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .close:hover { color: var(--text-strong); border-color: var(--line-strong); }
+  .label {
+    display: block;
+    margin: 0 0 10px;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .servers { display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 12px; }
+  .server {
+    display: block;
+    padding: 16px 8px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    background: var(--bg-3);
+    color: var(--text-strong);
+    text-align: center;
+    text-decoration: none;
+  }
+  .server-name { display: block; font-size: 1.45rem; font-weight: 800; letter-spacing: 0.06em; }
+  .server-sub { display: block; margin-top: 4px; color: var(--text-dim); font-size: 0.82rem; font-weight: 500; }
+  .server:hover, .server:focus { border-color: var(--accent); outline: none; }
+  .server:hover .server-sub, .server:focus .server-sub { color: var(--accent-text); }
+  .custom { margin: 22px 0 0; }
+  .custom-row { display: flex; }
+  .custom input {
+    flex: 1;
+    min-width: 0;
+    min-height: 56px;
+    margin-right: 10px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: var(--bg-0);
+    color: var(--text-strong);
+    font: inherit;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .custom input::placeholder { color: var(--text-dim); text-transform: none; letter-spacing: 0; }
+  .custom input:focus { border-color: var(--accent); outline: none; }
+  .custom input.wrong { border-color: var(--negative); }
+  .notice { margin: 14px 0 0; padding: 12px 14px; border-radius: 12px; font-size: 0.94rem; line-height: 1.5; }
+  .notice.error { background: var(--negative-bg); color: var(--negative); }
+  .notice.started { background: var(--positive-bg); color: var(--positive); }
+
+  /* Landscape tablets and laptops: text beside the install steps. */
+  @media (min-width: 900px) {
+    .top { padding: 32px 48px 0; }
+    .hero { padding: 40px 48px; }
+    .hero-inner { grid-template-columns: 1.15fr 0.85fr; grid-gap: 64px; }
+    h1 { font-size: 3.4rem; }
+    .lead { font-size: 1.15rem; }
+  }
+  @media (min-width: 1400px) {
+    h1 { font-size: 4.2rem; }
+    .hero-inner { max-width: 1240px; }
+    .lead { font-size: 1.3rem; }
+    .button.big { padding: 22px 46px; font-size: 1.3rem; }
+    .meta { font-size: 1rem; }
+    .card { padding: 34px 34px 30px; }
+    .card h2 { font-size: 1.2rem; }
+    .step-list li { font-size: 1.05rem; }
+  }
+  /* Controller screens and tablets held sideways are wide but short. */
+  @media (max-height: 640px) and (orientation: landscape) {
+    .top { padding-top: 18px; }
+    .logo { height: 32px; }
+    .hero { padding-top: 16px; padding-bottom: 16px; }
+    h1 { font-size: 2.6rem; }
+    .lead { margin: 10px 0 20px; font-size: 1rem; }
+    .card { padding: 20px 22px 18px; }
+    .card h2 { margin-bottom: 12px; }
+    .step-list li { margin-bottom: 10px; font-size: 0.9rem; }
+    .sheet { padding: 20px 22px 18px; }
+    .sheet-lead { margin: 6px 0 14px; }
+    .server { padding: 12px 8px 10px; }
+    .custom { margin-top: 16px; }
+    footer { padding-bottom: 14px; }
+  }
+  @media (max-width: 480px) {
+    .top { padding: 20px 16px 0; }
+    .card, .sheet { padding: 22px 18px 18px; }
+    .servers { grid-gap: 8px; }
+    .custom-row { display: block; }
+    .custom input { width: 100%; margin: 0 0 10px; }
+    .custom .button { width: 100%; }
   }
 </style>
 </head>
 <body>
-  <img class="logo" src="assets/dh-logo.png" alt="drone harmony">
+  <header class="top">
+    <img class="logo" src="assets/dh-logo.png" alt="drone harmony">
+  </header>
 
-  <main class="card" id="loading">
-    <h1>Asset Inspector</h1>
-    <p class="lead">Loading the latest version&hellip;</p>
-  </main>
+  <main class="hero">
+    <div class="hero-inner">
+      <section>
+        <p class="eyebrow">App download</p>
+        <h1>Asset Inspector</h1>
+        <p class="lead">Drone Harmony's asset inspection app for DJI controllers. Download the latest version for your server and install it in a few taps.</p>
+        <button class="button big" id="open-download" type="button" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>Download latest app
+        </button>
+        <p class="meta" id="meta">Loading the latest version&hellip;</p>
+      </section>
 
-  <main class="card" id="failed" hidden>
-    <h1>Asset Inspector</h1>
-    <p class="lead">The download list could not be loaded. Check the controller is online, then reload this page.</p>
-    <a class="button" href="">Reload</a>
-  </main>
-
-  <main class="card" id="picker" hidden>
-    <h1>Asset Inspector</h1>
-    <p class="lead">Choose the Drone Harmony server you sign in to.</p>
-    <p class="label">Server</p>
-    <div class="servers" id="servers"></div>
-    <form class="custom" id="custom" method="get" action="">
-      <p class="label">Custom server</p>
-      <div class="custom-row">
-        <input id="custom-name" name="server" type="text" placeholder="Your server name" maxlength="24"
-               autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Custom server name">
-        <button class="button" type="submit">Continue</button>
-      </div>
-      <p class="message" id="custom-message" hidden></p>
-    </form>
-  </main>
-
-  <main class="card" id="download" hidden>
-    <h1>Asset Inspector <span class="tag" id="server-tag"></span></h1>
-    <p class="lead">The Asset Inspector app for your controller, for the <strong id="server-name"></strong> server.</p>
-    <a class="button big" id="download-link" href="">Download latest app</a>
-    <div class="meta" id="download-meta"></div>
-    <p class="note" id="custom-note" hidden>If the download does not start, check the server name with Drone Harmony.</p>
-    <div class="steps">
-      <strong>Install</strong>
-      <ol>
-        <li>Tap <strong>Download latest app</strong> and wait for it to finish.</li>
-        <li>If the browser warns about the file, choose <strong>Download anyway</strong>.</li>
-        <li>Open the downloaded file. If Android asks, allow installs from this source, then tap <strong>Install</strong>.</li>
-        <li>Open Asset Inspector and sign in with your Drone Harmony account.</li>
-      </ol>
+      <aside class="card">
+        <h2>Install on your controller</h2>
+        <ol class="step-list">
+          <li>Tap <strong>Download latest app</strong> and choose your server.</li>
+          <li>If the browser warns about the file, choose <strong>Download anyway</strong>.</li>
+          <li>Open the downloaded file. If Android asks, allow installs from this source, then tap <strong>Install</strong>.</li>
+          <li>Open Asset Inspector and sign in with your Drone Harmony account.</li>
+        </ol>
+      </aside>
     </div>
-    <a class="change" href="./">Change server</a>
   </main>
 
-  <noscript><p class="lead">Turn on JavaScript in this browser to see the downloads.</p></noscript>
+  <noscript><p class="meta" style="text-align:center">Turn on JavaScript in this browser to see the downloads.</p></noscript>
 
   <footer id="footer">Drone Harmony</footer>
+
+  <div class="overlay" id="chooser" role="dialog" aria-modal="true" aria-labelledby="chooser-title" hidden>
+    <div class="sheet">
+      <h2 id="chooser-title">Choose your server</h2>
+      <button class="close" id="close" type="button" aria-label="Close">&times;</button>
+      <p class="sheet-lead">Pick the Drone Harmony server you sign in to. Each server has its own app.</p>
+      <span class="label">Server</span>
+      <div class="servers" id="servers"></div>
+      <form class="custom" id="custom" action="" novalidate>
+        <label class="label" for="custom-name">Custom server</label>
+        <div class="custom-row">
+          <input id="custom-name" type="text" placeholder="Type your server name" maxlength="24"
+                 autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button class="button" id="custom-go" type="submit">Download</button>
+        </div>
+      </form>
+      <p class="notice error" id="error" role="alert" hidden></p>
+      <p class="notice started" id="started" role="status" hidden></p>
+    </div>
+  </div>
 
 <script>
     // The version and links live in latest.json; edit that file to publish a new version.
     // Plain ES5 on purpose: controller browsers can be old.
     var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var CHECK_TIMEOUT_MS = 10000;
+    var latest = null;
+    var returnFocus = null;
 
-    function show(id) {
-        var views = ['loading', 'failed', 'picker', 'download'];
-        for (var i = 0; i < views.length; i++) {
-            document.getElementById(views[i]).hidden = views[i] !== id;
-        }
-    }
+    function byId(id) { return document.getElementById(id); }
 
     // A server name is letters, digits and hyphens only; anything else is refused, never passed into a link.
     function cleanServer(raw) {
         var name = (raw || '').replace(/^\s+|\s+$/g, '').toUpperCase();
         return /^[A-Z0-9-]{1,24}$/.test(name) ? name : '';
-    }
-
-    function readServerParam() {
-        var match = /[?&]server=([^&#]*)/.exec(window.location.search);
-        if (!match) return null;
-        try { return decodeURIComponent(match[1].replace(/\+/g, ' ')); } catch (e) { return match[1]; }
     }
 
     function formatDate(iso) {
@@ -244,84 +345,165 @@
         return Number(parts[3]) + ' ' + MONTHS[Number(parts[2]) - 1] + ' ' + parts[1];
     }
 
-    function versionFor(latest, server) {
+    function versionFor(server) {
         var overrides = latest.serverVersions || {};
         return overrides[server] || latest.version;
     }
 
-    function linkFor(latest, server) {
-        return latest.link
-            .replace('{server}', server.toLowerCase())
-            .replace('{version}', versionFor(latest, server));
+    function linkFor(server) {
+        return latest.link.replace('{server}', server.toLowerCase()).replace('{version}', versionFor(server));
     }
 
-    function renderPicker(latest, message) {
-        var list = document.getElementById('servers');
-        list.innerHTML = '';
+    function isPreset(server) {
         for (var i = 0; i < latest.servers.length; i++) {
-            var name = cleanServer(latest.servers[i]);
-            if (!name) continue;
-            var a = document.createElement('a');
-            a.className = 'server';
-            a.href = '?server=' + encodeURIComponent(name.toLowerCase());
-            a.textContent = name;
-            list.appendChild(a);
+            if (cleanServer(latest.servers[i]) === server) return true;
         }
-        var box = document.getElementById('custom-message');
-        box.hidden = !message;
-        box.textContent = message || '';
-        document.getElementById('custom').onsubmit = function () {
-            var input = document.getElementById('custom-name');
-            if (cleanServer(input.value)) return true;
-            box.hidden = false;
-            box.textContent = 'Type the server name Drone Harmony gave you: letters and numbers only.';
-            input.focus();
-            return false;
-        };
-        show('picker');
+        return false;
     }
 
-    function renderDownload(latest, server) {
-        var known = false;
-        for (var i = 0; i < latest.servers.length; i++) {
-            if (cleanServer(latest.servers[i]) === server) known = true;
+    function showError(text) {
+        byId('started').hidden = true;
+        byId('error').textContent = text;
+        byId('error').hidden = false;
+        byId('custom-name').className = 'wrong';
+        byId('custom-name').focus();
+    }
+
+    function showStarted(server) {
+        byId('error').hidden = true;
+        byId('custom-name').className = '';
+        byId('started').textContent = 'Downloading Asset Inspector ' + versionFor(server) + ' for ' + server +
+            '. When it finishes, open the file to install.';
+        byId('started').hidden = false;
+    }
+
+    function resetNotices() {
+        byId('error').hidden = true;
+        byId('started').hidden = true;
+        byId('custom-name').className = '';
+    }
+
+    // Every Drone Harmony server answers at <name>.droneharmony.com, so a name with no such host is wrong.
+    // The APK host itself cannot be asked from a browser, so this proves the server, not its file.
+    function checkServer(server, done) {
+        var finished = false;
+        var probe = new Image();
+        var timer = setTimeout(function () { finish('timeout'); }, CHECK_TIMEOUT_MS);
+        function finish(result) {
+            if (finished) return;
+            finished = true;
+            clearTimeout(timer);
+            probe.onload = probe.onerror = null;
+            done(result);
         }
-        var meta = 'Version ' + versionFor(latest, server);
+        probe.onload = function () { finish('found'); };
+        probe.onerror = function () { finish('missing'); };
+        probe.src = latest.serverCheck.replace('{server}', server.toLowerCase()) + '?t=' + new Date().getTime();
+    }
+
+    function startDownload(server) {
+        showStarted(server);
+        window.location.href = linkFor(server);
+    }
+
+    function submitCustom() {
+        var input = byId('custom-name');
+        var go = byId('custom-go');
+        var typed = input.value.replace(/^\s+|\s+$/g, '');
+        var server = cleanServer(typed);
+        if (!typed) return showError('Type your server name first.');
+        if (!server) return showError('A server name is letters and numbers only. Check the name Drone Harmony gave you.');
+        if (isPreset(server) || !latest.serverCheck) return startDownload(server);
+        if (navigator.onLine === false) return showError('This device is offline. Connect to the internet and try again.');
+        resetNotices();
+        go.disabled = true;
+        go.textContent = 'Checking…';
+        checkServer(server, function (result) {
+            go.disabled = false;
+            go.textContent = 'Download';
+            if (result === 'found') return startDownload(server);
+            if (result === 'timeout') return showError('Could not check ' + server + ' just now. Check the connection and try again.');
+            showError('There is no Drone Harmony server called ' + server + '. Check the name and try again.');
+        });
+    }
+
+    function makeServerLink(server) {
+        var a = document.createElement('a');
+        var name = document.createElement('span');
+        var sub = document.createElement('span');
+        a.className = 'server';
+        a.href = linkFor(server);
+        name.className = 'server-name';
+        name.textContent = server;
+        sub.className = 'server-sub';
+        sub.textContent = 'Download ' + versionFor(server);
+        a.appendChild(name);
+        a.appendChild(sub);
+        // The link itself starts the download; this only says so.
+        a.onclick = function () { showStarted(server); };
+        return a;
+    }
+
+    function openChooser() {
+        returnFocus = document.activeElement;
+        resetNotices();
+        byId('chooser').hidden = false;
+        document.body.className = 'locked';
+        var first = byId('servers').getElementsByTagName('a')[0];
+        if (first) first.focus();
+    }
+
+    function closeChooser() {
+        byId('chooser').hidden = true;
+        document.body.className = '';
+        if (returnFocus && returnFocus.focus) returnFocus.focus();
+    }
+
+    function render() {
+        var list = byId('servers');
+        for (var i = 0; i < latest.servers.length; i++) {
+            var server = cleanServer(latest.servers[i]);
+            if (server) list.appendChild(makeServerLink(server));
+        }
+        var meta = 'Version ' + latest.version;
         if (latest.size) meta += ' · ' + latest.size;
-        meta += ' · Android';
-        document.getElementById('server-tag').textContent = server;
-        document.getElementById('server-name').textContent = server;
-        document.getElementById('download-link').href = linkFor(latest, server);
-        document.getElementById('download-meta').textContent = meta;
-        document.getElementById('custom-note').hidden = known;
-        document.title = 'Asset Inspector ' + server + ' download';
-        show('download');
+        byId('meta').textContent = meta + ' · Android';
+        var updated = formatDate(latest.updated);
+        byId('footer').textContent = 'Drone Harmony · Asset Inspector ' + latest.version +
+            (updated ? ', updated ' + updated : '');
+        var open = byId('open-download');
+        open.disabled = false;
+        open.onclick = openChooser;
     }
 
-    function render(latest) {
-        var updated = formatDate(latest.updated);
-        document.getElementById('footer').textContent = 'Drone Harmony · latest version ' + latest.version +
-            (updated ? ', updated ' + updated : '');
-        var raw = readServerParam();
-        if (raw === null) return renderPicker(latest, '');
-        var server = cleanServer(raw);
-        if (!server) return renderPicker(latest, 'That server name was not recognised. Pick a server or type it again.');
-        renderDownload(latest, server);
+    function failed() {
+        var meta = byId('meta');
+        meta.className = 'meta failed';
+        meta.textContent = 'The download list could not be loaded. Check the connection, then reload this page.';
     }
+
+    byId('close').onclick = closeChooser;
+    byId('chooser').onclick = function (e) { if (e.target === byId('chooser')) closeChooser(); };
+    byId('custom').onsubmit = function () { submitCustom(); return false; };
+    byId('custom-name').oninput = function () { if (!byId('error').hidden) resetNotices(); };
+    document.onkeydown = function (e) {
+        var key = e.key || e.keyCode;
+        if ((key === 'Escape' || key === 'Esc' || key === 27) && !byId('chooser').hidden) closeChooser();
+    };
 
     (function load() {
         var request = new XMLHttpRequest();
         // The time stamp skips any cached copy, so a new version shows the moment it is published.
         request.open('GET', 'latest.json?t=' + new Date().getTime(), true);
         request.onload = function () {
-            var latest = null;
             try { latest = JSON.parse(request.responseText); } catch (e) { latest = null; }
             if (request.status !== 200 || !latest || !latest.version || !latest.link || !latest.servers) {
-                return show('failed');
+                latest = null;
+                return failed();
             }
-            render(latest);
+            render();
         };
-        request.onerror = function () { show('failed'); };
+        request.onerror = failed;
         request.send();
     })();
 </script>
